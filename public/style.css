@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  font-family: 'Finger Paint', cursive;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  height: 12rem;
+  margin-bottom: 5rem;
+  border-radius: 0 0 3rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f2f2f2;
+  margin: auto;
+  box-shadow:  0 0.5rem 0.5rem #d8d8d8;
+}
+
+header img {
+  padding-left: 2rem;
+  max-width: 20rem;
+}
+
+header a {
+  font-size: 2.5rem;
+  padding-right: 5rem;
+  font-family: 'Finger Paint';
+  font-weight: 600;
+}
+
+main {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+#products-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+main a {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+  border-radius: 3rem;
+  overflow: hidden;
+  margin: 2rem;
+}
+
+main a:hover{
+  transform: scale(1.015);
+  transition: 0.4s;
+}
+
+#products-cards img {
+  height: 30rem;
+  border-radius: 3rem 3rem 0 0;
+  object-fit: cover;
+}
+
+#products-cards figcaption {
+  background: #f2f2f2;
+  max-width: 50rem;
+  height: 20rem;
+  border-radius: 0 0 3rem 3rem ; 
+  padding: 1rem;
+}
+
+h2,
+p,
+span {
+  font-family: cursive;
+  overflow-wrap:break-word;
+}
+
+#products-cards p {
+  padding-top: 1rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+#products-cards h2 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+#products-cards span {
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+  padding-top: 2rem;
+}
+
+#products-pages {
+  height: 60rem;
+  max-width: 50rem;
+  border-radius: 3rem;
+  background: #f2f2f2;
+  display: flex;
+  flex-flow: column wrap;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+#products-pages img{
+  height: 30rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+#products-pages figcaption{
+  background: #f2f2f2;
+  height: 30rem;
+  width: 100%;
+  border-radius: 3rem;
+}
