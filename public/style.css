@@ -12,7 +12,7 @@ a {
 html {
   font-size: 62.5%;
   overflow-x: hidden;
-  font-family: 'Finger Paint', cursive;
+  font-family: cursive;
 }
 
 body{
@@ -25,17 +25,25 @@ body{
 }
 
 header {
-  display: flex;
   width: 100%;
   height: 12rem;
-  margin-bottom: 5rem;
   border-radius: 0 0 3rem 3rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background: #f2f2f2;
-  margin: auto;
   box-shadow:  0 0.5rem 0.5rem #d8d8d8;
+}
+
+header nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 2.5rem;
 }
 
 header img {
@@ -44,7 +52,6 @@ header img {
 }
 
 header a {
-  font-size: 2.5rem;
   padding-right: 5rem;
   font-family: 'Finger Paint';
   font-weight: 600;
@@ -55,36 +62,46 @@ main {
   padding-bottom: 2rem;
 }
 
-#products-cards {
+/* INDEX PAGE */
+
+#products-cards-contenair {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
 }
 
-main a {
-  display: flex;
-  flex-direction: column;
-  max-width: 50rem;
-  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+#products-cards-contenair a{
+  width: 55rem;
+  height: 45rem;
   border-radius: 3rem;
-  overflow: hidden;
   margin: 2rem;
 }
 
-main a:hover{
+#products-cards-contenair figure {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+  border-radius: 3rem;
+  overflow: hidden;
+}
+
+#products-cards-contenair figure:hover,
+button:hover{
   transform: scale(1.015);
   transition: 0.4s;
 }
 
-#products-cards img {
-  height: 30rem;
+#products-cards-contenair img {
+  width: 100%;
+  height: 25rem;
   border-radius: 3rem 3rem 0 0;
   object-fit: cover;
 }
 
-#products-cards figcaption {
+#products-cards-contenair figcaption {
   background: #f2f2f2;
-  max-width: 50rem;
+  max-width: 60rem;
   height: 20rem;
   border-radius: 0 0 3rem 3rem ; 
   padding: 1rem;
@@ -94,47 +111,246 @@ h2,
 p,
 span {
   font-family: cursive;
-  overflow-wrap:break-word;
 }
 
-#products-cards p {
+p {
   padding-top: 1rem;
   font-size: 2rem;
   font-weight: 400;
 }
 
-#products-cards h2 {
+h2 {
   text-align: center;
   font-size: 2.5rem;
 }
 
-#products-cards span {
+span {
   display: block;
   text-align: center;
   font-size: 1.6rem;
   padding-top: 2rem;
 }
 
-#products-pages {
-  height: 60rem;
-  max-width: 50rem;
+/* PRODUCT PAGES */
+
+#product-page-contenair {
+  height: 55rem;
+  max-width: 60rem;
   border-radius: 3rem;
   background: #f2f2f2;
   display: flex;
   flex-flow: column wrap;
   margin: auto;
   margin-top: 5rem;
+  margin-bottom: 5rem;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
 }
 
-#products-pages img{
+#product-page-contenair nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#product-page-contenair,
+#product-page-contenair label,
+#product-page-contenair select,
+button {
+  cursor: pointer;
+}
+
+#product-page-contenair img{
   height: 30rem;
   object-fit: cover;
   width: 100%;
+  border-radius: 3rem 3rem 0 0;
 }
 
-#products-pages figcaption{
+#product-page-contenair figcaption{
   background: #f2f2f2;
-  height: 30rem;
+  height: 25rem;
   width: 100%;
   border-radius: 3rem;
+  padding: 1rem;
+}
+
+#product-page-contenair label {
+  display: block;
+  text-align: center;
+  padding-top: 2rem;
+  
+}
+
+.main-product-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-product-page a {
+  display: block;
+  width: 36rem;
+  height: 8rem;
+  border-radius: 3rem;
+  margin-top: 4rem;
+  margin: auto;
+}
+
+button {
+  width: 36rem;
+  height: 8rem;
+  border-radius: 3rem;
+  background: linear-gradient(135deg ,#e69320 , #8F5BFE);
+  outline:none;
+  border: none;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+  font-size: 2rem;
+  font-family: cursive;
+  font-weight: bold;
+}
+
+footer {
+  background: #333;
+  height: 15rem;
+}
+
+/* CART PAGE*/
+
+#cart-page-contenair {
+  max-width: 70rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#cart-page-table {
+  width: 100%;
+  
+}
+
+table {
+  background: #f2f2f2;
+  border-radius: 3rem;
+  margin-top: 2rem;
+  /* margin-bottom: 2rem;  */
+  display: flex;
+  flex-flow: column;
+  background: #f2f2f2;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+}
+
+caption {
+  margin: auto;
+  font-size: 2.5rem;
+  font-family: cursive;
+  font-weight: bold;
+}
+
+
+
+thead {
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+  margin-bottom: 1rem;
+  padding-left: 3rem;
+}
+
+tbody{
+  width: 100%;
+  background:#ffffff;
+  border-radius: 3rem;
+  padding-top: 2rem;
+}
+
+thead,
+tbody {
+  font-size: 1.6rem;
+  background: #ffffff;
+  border-radius: 3rem;  
+}
+
+tbody img {
+  width: 12rem;
+  border-radius: 3rem;
+}
+tbody th:nth-child(1),
+thead th:nth-child(1) {
+  width:20rem;
+}
+
+tbody select,
+thead th:nth-child(2) {
+  width: 20rem;
+}
+
+tbody th:nth-child(3),
+thead th:nth-child(3) {
+
+  width: 20rem;
+}
+
+tbody th:nth-child(4),
+thead th:nth-child(4) {
+
+  width: 20rem;
+}
+
+thead th {
+  height: 0rem;
+}
+
+tbody th {
+  /* height: 1rem; */
+  padding-bottom: 2rem;
+}
+
+tbody select {
+  width: 13.5rem;
+  background: #f2f2f2;
+  margin-left: 2rem;
+  margin-top: 4.5rem;
+}
+.cart-page-form {
+  width: 100%;
+  background: #f2f2f2;
+  border-radius: 3rem;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align:left;
+  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+}
+
+.cart-page-form input {
+  height: 3rem;
+  border-radius: 3rem;
+  padding-left: 1rem;
+  outline-style: none;
+  margin: 0.5rem;
+  width: 30rem;
+  border: 0.2r
+}
+
+.cart-page-form label,
+.cart-page-form textarea{
+    display: block;
+    width: 15rem;
+    float: left;
+    font-size: 1.6rem;
+    
+}
+
+.cart-page-form textarea {
+  width: 31rem;
+  border-radius: 3rem;
+  height: 6rem;
+  padding:  0.5rem 2rem;
+  outline-style: none;
+  margin-bottom: 1rem;
+  border: 0.1rem solid #333;
+}
+
+input:invalid {
+  border: 0.1rem dashed #333;
 }
