@@ -14,25 +14,19 @@
 </head>
 <body>
   <header>
-    <img src="../img/logo.png">
     <nav>
-      <a href="../index.html">Accueil</a>
-      <a href="html/cart.html">Panier</a>
+      <a href="../index.html">
+        <img src="../img/logo.png">
+      </a>
+      <a href="cart.html" class="nav-link">Votre panier</a>
     </nav>
   </header>
-  <main>
-    <div id="products-pages">
-      <figure>
-        <img src="" alt="">
-        <figcaption>
-          <h2></h2>
-          <p></p>
-          <select name="" id="">1 2 3 </select>
-          <span></span>
-        </figcaption>
-      </figure>
-    </div>
+  <main class="main-product-page">
+    <template id="product-page-contenair">
+    </template>
+    <a href="cart.html">
+      <button id="btn-add-to-cart">Ajouter au panier</button>
+    </a>
   </main>
   <script src="../js/product.js"></script>
 </body>
-</html>

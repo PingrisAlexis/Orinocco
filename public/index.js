@@ -3,26 +3,30 @@
 
 // PRODUCTS CARDS CREATION //
 
-function createProductCards(productsData) {
-  for (let i = 0; i < productsData.length; i++) {
-    // STRUCTURE HTML 
-    let productsCards = document.getElementById("products-cards");
-    let linkProduct = document.createElement("a");
-    let newProductImg = document.createElement("img");
-    let newProductFigcaption = document.createElement("figcaption");
+function createProductCards(productData) {
+  for (let i = 0; i < productData.length; i++) {
+    // Initialisation HTML structure
+    let productsCardsContenair = document.getElementById("products-cards-contenair");
+    let newProductPageLink = document.createElement("a");
+    let newProductCard = document.createElement("figure");
+    let newProductPicture = document.createElement("img");
+    let newProductInformations = document.createElement("figcaption");
     let newProductName = document.createElement("h2");
     let newProductDescription = document.createElement("p");
-    // ADD DATA
-    linkProduct.href = "html/product.html?id=" + productsData[i]._id;
-    newProductImg.src = productsData[i].imageUrl;
-    newProductName.innerHTML = productsData[i].name;
-    newProductDescription.innerHTML = productsData[i].description;
-    // NODES CREATION
-    productsCards.appendChild(linkProduct);
-    linkProduct.appendChild(newProductImg);
-    linkProduct.appendChild(newProductFigcaption);
-    newProductFigcaption.appendChild(newProductName);
-    newProductFigcaption.appendChild(newProductDescription);
+    // Create Products Cards Link
+    productsCardsContenair.appendChild(newProductPageLink);
+    // Create Products Cards
+    newProductPageLink.appendChild(newProductCard);
+
+    newProductCard.appendChild(newProductPicture);
+    newProductCard.appendChild(newProductInformations);
+    newProductInformations.appendChild(newProductName);
+    newProductInformations.appendChild(newProductDescription);
+
+    newProductPageLink.href = "html/product.html?id=" + productData[i]._id;
+    newProductPicture.src = productData[i].imageUrl;
+    newProductName.innerHTML = productData[i].name;
+    newProductDescription.innerHTML = productData[i].description;
   }
 }
 
@@ -33,9 +37,9 @@ async function getProducts() {
     let response = await fetch("http://localhost:3000/api/cameras");
     console.log(response);
     if (response.ok) {
-      let productsData = await response.json();
-      console.log(productsData);
-      createProductCards(productsData)
+      let productData = await response.json();
+      console.log(productData);
+      createProductCards(productData)
     }
     else {
       console.log(reponse.status)
@@ -46,3 +50,4 @@ async function getProducts() {
   }
 }
 getProducts()
+console.log(localStorage);
