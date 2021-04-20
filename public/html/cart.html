@@ -14,70 +14,12 @@
 </head>
 <body>
   <header>
+    <img src="../img/logo.png">
     <nav>
-      <a href="../index.html">
-        <img src="../img/logo.png" alt="logo Orinoco">
-      </a>
+      <a href="../index.html">Accueil</a>
     </nav>
   </header>
-  <main id="cart-page-contenair">
-    <section id="cart-page-table">
-      <table>
-        <caption>Votre Panier</caption>
-        <thead>
-          <tr>
-            <th>Produit</th>
-            <th>Lentilles</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-          </tr>
-        </thead>
-        <tbody id="add-products-cart-contenair">
-        </tbody>
-      </table>
-    </section>
-    <section class="cart-page-form">
-        <form  method="post">
-          <h2>Vos coordonnées</h2>
-          <div>
-            <label for="user-name">Nom :</label>
-            <input type="text" minlength="2" id="user-name" name="user_name" placeholder="Ori" required>
-          </div>
-          <div>
-            <label for="user-firstname">Prénom :</label>
-            <input type="text" minlength="2" id="user-firstname" name="user_firstname" placeholder="Noco" required>
-          </div>
-          <div>
-            <label for="user-adress">Adresse :</label>
-            <input type="text" id="user-adress" name="user_name" placeholder="55 Avenue de la photographie" required>
-          </div>
-          <div>
-            <label for="user-postcode">Code postal :</label>
-            <input id="postcode" pattern="[0-9]{5}" type="text"  placeholder="75000" required />
-          </div>
-          <div>
-            <label for="user-city">Ville :</label>
-            <input type="text" id="user-city" name="user_city"  placeholder="Paris" required/>
-          </div>
-          <div>
-            <label for="user-mail">E-mail :</label>
-            <input type="email" id="user-mail" name="user_mail" placeholder="exemple@mail.com" required/>
-          </div>
-          <div>
-            <label for="user-phone">Téléphone :</label>
-            <input type="tel" pattern="[0-9]{10}" id="user-phone" name="user_phone" placeholder="0123456789" required/>
-          </div>
-          <div>
-            <label for="user_message">Message :</label>
-            <textarea id="user_message" name="user_message"></textarea>
-          </div>
-        </form>
-      </section>
-      <button id="btn-order">Commander</button>
   
 
-  </main>
-  <script src="../js/cart.js"></script>
-  <!-- <script src="../js/product.js"></script> -->
 </body>
 </html>
