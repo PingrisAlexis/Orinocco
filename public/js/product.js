@@ -23,59 +23,65 @@ function createProductsPages(productData) {
       let newProductInformations = document.createElement("figcaption");
       let newProductName = document.createElement("h2");
       let newProductDescription = document.createElement("p");
-      let newProductPrice = document.createElement("span");
-      let newProductLensesLabel = document.createElement("label");
       let newProductLensesSelect = document.createElement("select");
-      // Create Product Card Contenair
-      productPageContenair.appendChild(newProductCard);
+      // let newProductQuantity = document.createElement("select");
+      let newProductPrice = document.createElement("span");
+
       // Create Product Card
+      productPageContenair.appendChild(newProductCard);
       newProductCard.appendChild(newProductPicture);
       newProductCard.appendChild(newProductInformations);
-      // Create Products Informations
       newProductInformations.appendChild(newProductName);
       newProductInformations.appendChild(newProductDescription);
-      newProductInformations.appendChild(newProductLensesLabel);
-      newProductInformations.appendChild(newProductPrice);
       // Get Product Picture
       newProductPicture.src = productData[i].imageUrl;
       // Get Product Description
       newProductDescription.innerHTML = productData[i].description;
-      // Get Product Name
       newProductName.innerHTML = productData[i].name;
-      // Get Product Price
-      newProductPrice.innerHTML = productData[i].price + " €";
-      // Create and Get Product Lenses
-      newProductLensesLabel.appendChild(newProductLensesSelect);
+      newProductPrice.innerHTML = `${productData[i].price / 100} €`,
+        // Create and Get Product Lenses
+        newProductInformations.appendChild(newProductLensesSelect);
       for (let k = 0; k < productData[i].lenses.length; k++) {
         let newProductLenses = document.createElement("option");
         newProductLenses.innerHTML = productData[i].lenses[k];
         newProductLensesSelect.appendChild(newProductLenses);
       }
+      newProductInformations.appendChild(newProductPrice);
 
-
-
-
-
+      var selectedLenses = document.querySelector('select');
+      selectedLenses.addEventListener('change', function () {
+        var index = selectedLenses.value;
+        console.log(index);
+      })
 
       // Submit selected product to local storage 
       let buttonAddToCart = document.getElementById('btn-add-to-cart');
 
-      buttonAddToCart.addEventListener('click', function (event) {
-        // event.preventDefault();
-
+      buttonAddToCart.addEventListener('click', function () {
+        event.preventDefault();
         let selectedProduct = {
+          selectedProductId: productData[i]._id,
           selectedProductName: productData[i].name,
           selectedProductPicture: productData[i].imageUrl,
-          selectedProductLenses: productData[i].lenses,
-          selectedProductPrice: productData[i].price + " €",
+          selectedProductLenses: selectedLenses.value,
+          selectedProductPrice: `${productData[i].price / 100} €`,
         }
 
-        let selectedProductCart = JSON.parse(localStorage.getItem('selectedProductCart') || '[]');
+        let selectedProductCart = JSON.parse(localStorage.getItem('selectedProductCart'));
+        // || '[]'
+        if (selectedProductCart) {
+          selectedProductCart.push(selectedProduct);
+          localStorage.setItem('selectedProductCart', JSON.stringify(selectedProductCart));
+          console.log(localStorage);
+        } else {
+          let tab = [];
+          tab.push(selectedProduct);
+          localStorage.setItem('selectedProductCart', JSON.stringify(tab));
+          console.log(localStorage.length);
+        }
 
-        selectedProductCart.push(selectedProduct);
 
-        localStorage.setItem('selectedProductCart', JSON.stringify(selectedProductCart));
-        console.log(localStorage);
+        console.log(localStorage.length);
       })
     }
   }
