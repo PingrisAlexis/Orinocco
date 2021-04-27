@@ -46,11 +46,12 @@ function createProductsPages(productData) {
         newProductLenses.innerHTML = productData[i].lenses[k];
         newProductLensesSelect.appendChild(newProductLenses);
       }
+
       newProductInformations.appendChild(newProductPrice);
 
-      var selectedLenses = document.querySelector('select');
+      let selectedLenses = document.querySelector('select');
       selectedLenses.addEventListener('change', function () {
-        var index = selectedLenses.value;
+        let index = selectedLenses.value;
         console.log(index);
       })
 
@@ -58,7 +59,6 @@ function createProductsPages(productData) {
       let buttonAddToCart = document.getElementById('btn-add-to-cart');
 
       buttonAddToCart.addEventListener('click', function () {
-        event.preventDefault();
         let selectedProduct = {
           selectedProductId: productData[i]._id,
           selectedProductName: productData[i].name,
@@ -68,7 +68,6 @@ function createProductsPages(productData) {
         }
         localStorage.setItem(i, JSON.stringify(selectedProduct));
         console.log(localStorage);
-
       })
     }
   }
