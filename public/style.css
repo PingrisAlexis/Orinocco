@@ -195,7 +195,14 @@ button {
   margin: auto;
 }
 
-button {
+.main-product-page select {
+  margin: auto;
+  display: block;
+  border-radius: 3rem;
+}
+
+#btn-order,
+#btn-add-to-cart {
   width: 36rem;
   height: 8rem;
   border-radius: 3rem;
@@ -224,14 +231,14 @@ footer {
 
 #cart-page-table {
   width: 100%;
-  
+  display: flex;
+  flex-flow: column-reverse;
 }
 
 table {
   background: #f2f2f2;
   border-radius: 3rem;
   margin-top: 2rem;
-  /* margin-bottom: 2rem;  */
   display: flex;
   flex-flow: column;
   background: #f2f2f2;
@@ -246,67 +253,57 @@ caption {
   font-weight: bold;
 }
 
-
-
 thead {
   box-shadow: 0 0.5rem 0.5rem #d8d8d8;
   margin-bottom: 1rem;
-  padding-left: 3rem;
 }
 
-tbody{
+#selected-product-cart-contenair {
   width: 100%;
   background:#ffffff;
-  border-radius: 3rem;
-  padding-top: 2rem;
 }
 
 thead,
 tbody {
   font-size: 1.6rem;
   background: #ffffff;
-  border-radius: 3rem;  
+  border-radius: 3rem;
+  max-width: 70rem;
 }
 
 tbody img {
-  width: 12rem;
+  height: 8rem;
+  width: 14rem;
+  border-radius: 3rem;
+  object-fit: cover;
+}
+
+
+tr {
   border-radius: 3rem;
 }
-tbody th:nth-child(1),
-thead th:nth-child(1) {
-  width:20rem;
-}
 
-tbody select,
-thead th:nth-child(2) {
-  width: 20rem;
-}
-
-tbody th:nth-child(3),
-thead th:nth-child(3) {
-
-  width: 20rem;
-}
-
-tbody th:nth-child(4),
-thead th:nth-child(4) {
-
-  width: 20rem;
-}
-
-thead th {
-  height: 0rem;
-}
-
+thead tr th,
 tbody th {
-  /* height: 1rem; */
-  padding-bottom: 2rem;
+  width: 15rem;
+  border-radius: 3rem;
 }
 
-tbody select {
-  width: 13.5rem;
+tbody button {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg ,#e69320 , #8F5BFE);
+  border:none;
+  border-radius: 3rem;
+}
+
+tbody button:before{
+  content : "\002716";
+}
+
+tbody input {
+  width: 3rem;
   background: #f2f2f2;
-  margin-left: 2rem;
   margin-top: 4.5rem;
 }
 .cart-page-form {
@@ -316,7 +313,7 @@ tbody select {
   display: flex;
   flex-flow: row wrap;
   margin: 2rem;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   text-align:left;
   box-shadow: 0 0.5rem 0.5rem #d8d8d8;
