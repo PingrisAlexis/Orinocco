@@ -1,36 +1,37 @@
 "use strict";
 
-let getSelectedProductCart = localStorage.getItem('selectedProductCart');
-let cartData = JSON.parse(getSelectedProductCart);
-console.log(localStorage.length);
-console.log(cartData);
-
-
 
 function deleteSelectedProduct(selectedProductCartButtonDelete) {
-  var deleteProductConfirmationMessage = confirm("Supprimer l'article de votre panier?");
+  let deleteProductConfirmationMessage = confirm("Supprimer l'article de votre panier?");
 
   if (deleteProductConfirmationMessage == true) {
-
-    var deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
+    let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
     deleteSelectedProduct.parentNode.removeChild(deleteSelectedProduct);
-
-
   }
   else {
     alert("L'article est conservé dans votre panier!");
   }
 }
 
-
+function deleteBasket(i) {
+  localStorage.removeItem(i);
+  console.log(i);
+}
 
 function createProductsCart() {
-
-  if (cartData === null) {
+  // let storageJson;
+  // let storageKey;
+  if (localStorage === null) {
     alert("Votre panier est actuellement vide!");
   }
   else {
-    for (let i = 0; i < cartData.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
+      let storageKey = localStorage.key(i);
+      console.log(storageKey)
+      let storageJson = localStorage.getItem(storageKey);
+      console.log(storageJson);
+      const cartData = JSON.parse(storageJson);
+      console.log(cartData);
       // Initialisation HTML structure
       let selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
 
@@ -45,10 +46,10 @@ function createProductsCart() {
 
       let selectedProductCartTotalPrice = document.createElement("th");
       // Get Selected Products Datas
-      selectedProductCartName.innerHTML = cartData[i].selectedProductName;
-      selectedProductCartPicture.src = cartData[i].selectedProductPicture;
-      selectedProductCartLensesSelected.innerHTML = cartData[i].selectedProductLenses;
-      selectedProductCartPrice.innerHTML = cartData[i].selectedProductPrice;
+      selectedProductCartName.innerHTML = cartData.selectedProductName;
+      selectedProductCartPicture.src = cartData.selectedProductPicture;
+      selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
+      selectedProductCartPrice.innerHTML = cartData.selectedProductPrice;
 
       selectedProductCartContenair.appendChild(selectedProductCartBlock);
       selectedProductCartBlock.appendChild(selectedProductCartTr);
@@ -63,12 +64,9 @@ function createProductsCart() {
 
       selectedProductCartButtonDelete.addEventListener('click', function (event) {
         deleteSelectedProduct(selectedProductCartButtonDelete);
+        deleteBasket(storageKey);
         event.preventDefault();
       })
-
-
-
-
 
     }
   }
