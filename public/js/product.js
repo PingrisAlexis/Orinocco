@@ -66,22 +66,9 @@ function createProductsPages(productData) {
           selectedProductLenses: selectedLenses.value,
           selectedProductPrice: `${productData[i].price / 100} €`,
         }
+        localStorage.setItem(i, JSON.stringify(selectedProduct));
+        console.log(localStorage);
 
-        let selectedProductCart = JSON.parse(localStorage.getItem('selectedProductCart'));
-        // || '[]'
-        if (selectedProductCart) {
-          selectedProductCart.push(selectedProduct);
-          localStorage.setItem('selectedProductCart', JSON.stringify(selectedProductCart));
-          console.log(localStorage);
-        } else {
-          let tab = [];
-          tab.push(selectedProduct);
-          localStorage.setItem('selectedProductCart', JSON.stringify(tab));
-          console.log(localStorage.length);
-        }
-
-
-        console.log(localStorage.length);
       })
     }
   }
