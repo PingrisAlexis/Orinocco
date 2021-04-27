@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // let url = "https://ab-p5-api.herokuapp.com/api/cameras?fbclid=IwAR2EC7RnIF-UwO5vP09FtcDKNvagdHVRBGp53bX6bEkZ_CVhn6v37oJ1CFs";
 
 // PRODUCTS CARDS CREATION //
