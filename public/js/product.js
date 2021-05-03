@@ -38,9 +38,9 @@ function createProductsPages(productData) {
       // Get Product Description
       newProductDescription.innerHTML = productData[i].description;
       newProductName.innerHTML = productData[i].name;
-      newProductPrice.innerHTML = `${productData[i].price / 100} €`,
-        // Create and Get Product Lenses
-        newProductInformations.appendChild(newProductLensesSelect);
+      newProductPrice.innerHTML = `${productData[i].price / 100} €`;
+      // Create and Get Product Lenses
+      newProductInformations.appendChild(newProductLensesSelect);
       for (let k = 0; k < productData[i].lenses.length; k++) {
         let newProductLenses = document.createElement("option");
         newProductLenses.innerHTML = productData[i].lenses[k];
@@ -64,10 +64,11 @@ function createProductsPages(productData) {
           selectedProductName: productData[i].name,
           selectedProductPicture: productData[i].imageUrl,
           selectedProductLenses: selectedLenses.value,
-          selectedProductPrice: `${productData[i].price / 100} €`,
+          selectedProductPrice: productData[i].price / 100,
         }
+
         localStorage.setItem(i, JSON.stringify(selectedProduct));
-        console.log(localStorage);
+        console.log(selectedProduct);
       })
     }
   }
