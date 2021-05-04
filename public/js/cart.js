@@ -1,22 +1,21 @@
 "use strict";
+let arrayPrice = [];
+let cartData;
+let selectedProductCartFinalPrice;
+
 // Bouton supprimer article
 function deleteSelectedProduct(selectedProductCartButtonDelete) {
-  let deleteProductConfirmationMessage = confirm("Supprimer l'article de votre panier?");
-
-  if (deleteProductConfirmationMessage == true) {
-    let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
-    deleteSelectedProduct.parentNode.removeChild(deleteSelectedProduct);
-  }
-  else {
-    alert("L'article est conservé dans votre panier!");
-  }
+  let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
+  deleteSelectedProduct.parentNode.removeChild(deleteSelectedProduct);
 }
 
 // suppression de l'article du storage
 function deleteBasket(i) {
   localStorage.removeItem(i);
   console.log(i);
+  location.reload();
 }
+
 
 
 // création de la page 
@@ -31,9 +30,8 @@ function createProductsCart() {
       console.log(storageKey);
       let storageJson = localStorage.getItem(storageKey);
       console.log(storageJson);
-      const cartData = JSON.parse(storageJson);
+      cartData = JSON.parse(storageJson);
       console.log(cartData);
-      console.log(typeof localStorage.length);
       // Initialisation HTML structure
       let selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
 
@@ -43,25 +41,15 @@ function createProductsCart() {
       let selectedProductCartPicture = document.createElement("img");
       let selectedProductCartLensesSelected = document.createElement("th");
       let selectedProductCartRowPrice = document.createElement("th");
-      let selectedProductCartQuantityColumn = document.createElement("th");
-      let selectedProductCartQuantitySelect = document.createElement("select");
-      let selectedProductCartQuantityOptionOne = document.createElement("option");
-      let selectedProductCartQuantityOptionTwo = document.createElement("option");
-      let selectedProductCartQuantityOptionThree = document.createElement("option");
-      let selectedProductCartQuantityOptionFour = document.createElement("option");
-      let selectedProductCartQuantityOptionFive = document.createElement("option");
-      let selectedProductCartRowTotalPrice = document.createElement("th");
       let selectedProductCartButtonDeleteColumn = document.createElement("th");
       let selectedProductCartButtonDelete = document.createElement("button");
       let selectedProductCartFinalPrice = document.getElementById("cart-total-price");
-      console.log(selectedProductCartFinalPrice);
       // Incrémentation des données dans la structure HTML
       selectedProductCartName.innerHTML = cartData.selectedProductName;
       selectedProductCartPicture.src = cartData.selectedProductPicture;
       selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
       selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductPrice} €`;
 
-      console.log(typeof cartData.selectedProductPrice);
       selectedProductCartContenair.appendChild(selectedProductCartBlock);
       selectedProductCartBlock.appendChild(selectedProductCartTr);
       selectedProductCartTr.appendChild(selectedProductCartName);
@@ -69,30 +57,6 @@ function createProductsCart() {
       selectedProductCartName.appendChild(selectedProductCartPicture);
       selectedProductCartTr.appendChild(selectedProductCartLensesSelected);
       selectedProductCartTr.appendChild(selectedProductCartRowPrice);
-      selectedProductCartTr.appendChild(selectedProductCartQuantityColumn);
-
-      // Création selection quantité de produits
-      selectedProductCartRowPrice.id = "selected-product-cart-price";
-      selectedProductCartRowTotalPrice.id = "selected-product-cart-total-price";
-
-      selectedProductCartQuantitySelect.id = "selected-product-cart-quantity-select";
-      selectedProductCartQuantityOptionOne.value = "1";
-      selectedProductCartQuantityOptionOne.text = "1";
-      selectedProductCartQuantityOptionTwo.value = "2";
-      selectedProductCartQuantityOptionTwo.text = "2";
-      selectedProductCartQuantityOptionThree.value = "3";
-      selectedProductCartQuantityOptionThree.text = "3";
-      selectedProductCartQuantityOptionFour.value = "4";
-      selectedProductCartQuantityOptionFour.text = "4";
-      selectedProductCartQuantityOptionFive.value = "5";
-      selectedProductCartQuantityOptionFive.text = "5";
-
-      selectedProductCartQuantityColumn.appendChild(selectedProductCartQuantitySelect);
-      selectedProductCartQuantitySelect.appendChild(selectedProductCartQuantityOptionOne);
-      selectedProductCartQuantitySelect.appendChild(selectedProductCartQuantityOptionTwo);
-      selectedProductCartQuantitySelect.appendChild(selectedProductCartQuantityOptionThree);
-      selectedProductCartQuantitySelect.appendChild(selectedProductCartQuantityOptionFour);
-      selectedProductCartQuantitySelect.appendChild(selectedProductCartQuantityOptionFive);
 
       // Bouton effacer ligne panier html et storage
       selectedProductCartButtonDelete.id = "selected-product-cart-button-delete";
@@ -104,23 +68,21 @@ function createProductsCart() {
         event.preventDefault();
       })
 
-      // calcul montant ligne panier
-      selectedProductCartTr.appendChild(selectedProductCartRowTotalPrice);
-      function productTotalPrice() {
-        let productQuantity = selectedProductCartQuantitySelect.options[selectedProductCartQuantitySelect.selectedIndex].value;
-        let productPrice = cartData.selectedProductPrice;
-        let productAmount = Number(productPrice * productQuantity);
 
-        selectedProductCartRowTotalPrice.innerHTML = `${productAmount} €`;
-        selectedProductCartFinalPrice.innerHTML = productAmount;
+      arrayPrice.push(cartData.selectedProductPrice);
 
-      }
-      productTotalPrice();
-      selectedProductCartQuantitySelect.addEventListener('change', function () {
-        productTotalPrice();
-        console.log(localStorage);
-      })
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      const cartTotalPrice = arrayPrice.reduce(reducer, 0);
+
+      // // localStorage.setItem("cartTotalPrice", JSON.stringify(cartTotalPrice));
+      selectedProductCartFinalPrice.innerHTML = `${cartTotalPrice} €`;
+      location.reload;
+      console.log(cartData.selectedProductPrice);
+      console.log(cartTotalPrice);
+      console.log(arrayPrice);
+
     }
+
   }
 }
 
