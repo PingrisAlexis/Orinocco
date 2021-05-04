@@ -152,7 +152,7 @@ span {
   justify-content: space-between;
 }
 
-#product-page-contenair,
+
 #product-page-contenair label,
 #product-page-contenair select,
 button {
@@ -215,15 +215,10 @@ button {
   font-weight: bold;
 }
 
-footer {
-  background: #333;
-  height: 15rem;
-}
-
 /* CART PAGE*/
 
 #cart-page-contenair {
-  max-width: 70rem;
+  max-width: 60rem;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -273,7 +268,7 @@ tbody {
 
 tbody {
   display: flex;
-  align-self: ;
+
 }
 
 tbody img {
@@ -290,7 +285,7 @@ tr {
 }
 
 th {
-  width: 13rem;
+  width: 30rem;
   border-radius: 3rem;
 }
 
