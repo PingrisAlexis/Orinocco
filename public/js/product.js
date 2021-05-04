@@ -12,7 +12,7 @@ let idProduct = getProductsIdInUrl();
 console.log(idProduct);
 
 // PRODUCTS PAGES CREATION //
-
+let arrayPrice = [];
 function createProductsPages(productData) {
   for (let i = 0; i < productData.length; i++) {
     if (productData[i]._id === idProduct) {
@@ -24,6 +24,12 @@ function createProductsPages(productData) {
       let newProductName = document.createElement("h2");
       let newProductDescription = document.createElement("p");
       let newProductLensesSelect = document.createElement("select");
+      let newProductQuantitySelect = document.createElement("select");
+      let newProductQuantityOptionOne = document.createElement("option");
+      let newProductQuantityOptionTwo = document.createElement("option");
+      let newProductQuantityOptionThree = document.createElement("option");
+      let newProductQuantityOptionFour = document.createElement("option");
+      let newProductQuantityOptionFive = document.createElement("option");
       // let newProductQuantity = document.createElement("select");
       let newProductPrice = document.createElement("span");
 
@@ -38,7 +44,7 @@ function createProductsPages(productData) {
       // Get Product Description
       newProductDescription.innerHTML = productData[i].description;
       newProductName.innerHTML = productData[i].name;
-      newProductPrice.innerHTML = `${productData[i].price / 100} €`;
+      // newProductPrice.innerHTML = `${productData[i].price / 100} €`;
       // Create and Get Product Lenses
       newProductInformations.appendChild(newProductLensesSelect);
       for (let k = 0; k < productData[i].lenses.length; k++) {
@@ -46,6 +52,23 @@ function createProductsPages(productData) {
         newProductLenses.innerHTML = productData[i].lenses[k];
         newProductLensesSelect.appendChild(newProductLenses);
       }
+      newProductInformations.appendChild(newProductQuantitySelect);
+      newProductQuantitySelect.appendChild(newProductQuantityOptionOne);
+      newProductQuantitySelect.appendChild(newProductQuantityOptionTwo);
+      newProductQuantitySelect.appendChild(newProductQuantityOptionThree);
+      newProductQuantitySelect.appendChild(newProductQuantityOptionFour);
+      newProductQuantitySelect.appendChild(newProductQuantityOptionFive);
+      newProductQuantitySelect.id = "selected-product-cart-quantity-select";
+      newProductQuantityOptionOne.value = "1";
+      newProductQuantityOptionOne.text = "1";
+      newProductQuantityOptionTwo.value = "2";
+      newProductQuantityOptionTwo.text = "2";
+      newProductQuantityOptionThree.value = "3";
+      newProductQuantityOptionThree.text = "3";
+      newProductQuantityOptionFour.value = "4";
+      newProductQuantityOptionFour.text = "4";
+      newProductQuantityOptionFive.value = "5";
+      newProductQuantityOptionFive.text = "5";
 
       newProductInformations.appendChild(newProductPrice);
 
@@ -54,7 +77,17 @@ function createProductsPages(productData) {
         let index = selectedLenses.value;
         console.log(index);
       })
-
+      let productAmount;
+      function productTotalPrice() {
+        let productQuantity = newProductQuantitySelect.options[newProductQuantitySelect.selectedIndex].value;
+        let productPrice = productData[i].price / 100;
+        productAmount = Number(productPrice * productQuantity);
+        newProductPrice.innerHTML = `${productAmount} €`;
+      }
+      productTotalPrice();
+      newProductQuantitySelect.addEventListener('change', function () {
+        productTotalPrice();
+      })
       // Submit selected product to local storage 
       let buttonAddToCart = document.getElementById('btn-add-to-cart');
 
@@ -64,9 +97,8 @@ function createProductsPages(productData) {
           selectedProductName: productData[i].name,
           selectedProductPicture: productData[i].imageUrl,
           selectedProductLenses: selectedLenses.value,
-          selectedProductPrice: productData[i].price / 100,
+          selectedProductPrice: productAmount,
         }
-
         localStorage.setItem(i, JSON.stringify(selectedProduct));
         console.log(selectedProduct);
       })
