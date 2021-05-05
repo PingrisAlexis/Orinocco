@@ -1,8 +1,19 @@
 "use strict";
 let arrayPrice = [];
-let cartData;
+let selectedProductCartContenair;
+let selectedProductCartBlock;
+let selectedProductCartTr;
+let selectedProductCartName;
+let selectedProductCartPicture;
+let selectedProductCartLensesSelected;
+let selectedProductCartRowPrice;
+let selectedProductCartButtonDeleteColumn;
+let selectedProductCartButtonDelete;
 let selectedProductCartFinalPrice;
 
+
+let cartData;
+createProductsCart();
 // Bouton supprimer article
 function deleteSelectedProduct(selectedProductCartButtonDelete) {
   let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
@@ -16,12 +27,11 @@ function deleteBasket(i) {
   location.reload();
 }
 
-
-
 // création de la page 
-function createProductsCart() {
+function createProductsCart(cartData) {
   if (localStorage === null) {
     alert("Votre panier est actuellement vide!");
+    console.log(alert);
   }
   else {
     for (let i = 0; i < localStorage.length; i++) {
@@ -32,23 +42,22 @@ function createProductsCart() {
       console.log(storageJson);
       cartData = JSON.parse(storageJson);
       console.log(cartData);
-      // Initialisation HTML structure
-      let selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
-
-      let selectedProductCartBlock = document.createElement("tbody");
-      let selectedProductCartTr = document.createElement("tr");
-      let selectedProductCartName = document.createElement("th");
-      let selectedProductCartPicture = document.createElement("img");
-      let selectedProductCartLensesSelected = document.createElement("th");
-      let selectedProductCartRowPrice = document.createElement("th");
-      let selectedProductCartButtonDeleteColumn = document.createElement("th");
-      let selectedProductCartButtonDelete = document.createElement("button");
-      let selectedProductCartFinalPrice = document.getElementById("cart-total-price");
-      // Incrémentation des données dans la structure HTML
+      //Initialisation HTML structure
+      selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
+      selectedProductCartBlock = document.createElement("tbody");
+      selectedProductCartTr = document.createElement("tr");
+      selectedProductCartName = document.createElement("th");
+      selectedProductCartPicture = document.createElement("img");
+      selectedProductCartLensesSelected = document.createElement("th");
+      selectedProductCartRowPrice = document.createElement("th");
+      selectedProductCartButtonDeleteColumn = document.createElement("th");
+      selectedProductCartButtonDelete = document.createElement("button");
+      selectedProductCartFinalPrice = document.getElementById("cart-total-price");
+      //Incrémentation des données dans la structure HTML
       selectedProductCartName.innerHTML = cartData.selectedProductName;
       selectedProductCartPicture.src = cartData.selectedProductPicture;
       selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
-      selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductPrice} €`;
+      selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductQuantity} x ${cartData.selectedProductPriceForOne}€ = ${cartData.selectedProductPrice}€`;
 
       selectedProductCartContenair.appendChild(selectedProductCartBlock);
       selectedProductCartBlock.appendChild(selectedProductCartTr);
@@ -58,7 +67,7 @@ function createProductsCart() {
       selectedProductCartTr.appendChild(selectedProductCartLensesSelected);
       selectedProductCartTr.appendChild(selectedProductCartRowPrice);
 
-      // Bouton effacer ligne panier html et storage
+      //Bouton effacer ligne panier html et storage
       selectedProductCartButtonDelete.id = "selected-product-cart-button-delete";
       selectedProductCartTr.appendChild(selectedProductCartButtonDeleteColumn);
       selectedProductCartButtonDeleteColumn.appendChild(selectedProductCartButtonDelete);
@@ -67,23 +76,47 @@ function createProductsCart() {
         deleteBasket(storageKey);
         event.preventDefault();
       })
-
-
+      //Calcul du prix des produits
       arrayPrice.push(cartData.selectedProductPrice);
 
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       const cartTotalPrice = arrayPrice.reduce(reducer, 0);
 
-      // // localStorage.setItem("cartTotalPrice", JSON.stringify(cartTotalPrice));
       selectedProductCartFinalPrice.innerHTML = `${cartTotalPrice} €`;
-      location.reload;
-      console.log(cartData.selectedProductPrice);
-      console.log(cartTotalPrice);
-      console.log(arrayPrice);
+      const orderButton = document.getElementById("btn-order");
+      orderButton.addEventListener('click', e => {
+        e.preventDefault();
+        sendOrderForm();
+      });
 
     }
-
   }
 }
+function sendOrderForm() {
+  let contact = {
+    lastName: document.getElementById("user-name").value,
+    firstName: document.getElementById("user-firstname").value,
+    address: document.getElementById("user-adress").value,
+    city: document.getElementById("user-city").value,
+    postCode: document.getElementById("user-postcode").value,
+    email: document.getElementById("user-mail").value,
+  };
 
-createProductsCart();
+  console.log(contact);
+  // let products = [];
+  if (localStorage !== null) {
+    let productTab = JSON.parse(localStorage);
+    console.log(localStorage);
+    console.log(productTab)
+    // productTab.forEach
+  }
+
+  // let contactItems = JSON.stringify({
+  //   contact, products
+  // })
+  // console.log(contactItems);
+};
+
+
+
+
