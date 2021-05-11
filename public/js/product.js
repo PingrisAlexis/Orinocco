@@ -16,6 +16,7 @@ let newProductQuantityOptionFive = document.createElement("option");
 let newProductPrice = document.createElement("span");
 let arrayPrice = [];
 let productAmount;
+let buttonAddToCart = document.getElementById('btn-add-to-cart');
 
 productPageContenair.appendChild(newProductCard);
 newProductCard.appendChild(newProductPicture);
@@ -45,6 +46,8 @@ function productTotalPrice(oneProductData) {
   newProductPrice.innerHTML = `${productAmount} €`;
   console.log(productAmount);
 }
+
+
 //Gestion des lentilles 
 function createLenses(product) {
   //Récupération des lentilles, puis création de la structure HTML
@@ -54,7 +57,14 @@ function createLenses(product) {
     newProductLensesSelect.appendChild(newProductLenses);
   }
 }
-//Gestion quantité articles
+//Ecoute de la lentille selectionée
+let selectedLenses = document.querySelector('select');
+function selectedLensesValue() {
+  selectedLenses.addEventListener('change', function () {
+    selectedLenses.value;
+  })
+}
+//Gestion quantité article
 function setQuantity() {
   // Création structure HTML gestion quantité
   newProductInformations.appendChild(newProductQuantitySelect);
@@ -77,12 +87,26 @@ function setQuantity() {
   newProductQuantityOptionFive.text = "5";
 }
 
-let selectedLenses = document.querySelector('select');
-selectedLenses.addEventListener('change', function () {
-  let index = selectedLenses.value;
-  console.log(index);
-})
-
+function addToCart(productData) {
+  for (let i = 0; i < productData.length; i++) {
+    if (productData[i]._id === idProduct) {
+      buttonAddToCart.addEventListener('click', function () {
+        let selectedProduct = {
+          selectedProductId: productData[i]._id,
+          selectedProductName: productData[i].name,
+          selectedProductPicture: productData[i].imageUrl,
+          selectedProductLenses: selectedLenses.value,
+          selectedProductTotalPrice: productAmount,
+          selectedProductQuantity: newProductQuantitySelect.options[newProductQuantitySelect.selectedIndex].value,
+          selectedProductUnityPrice: productData[i].price / 100,
+        }
+        localStorage.setItem(i, JSON.stringify(selectedProduct));
+        console.log(selectedProduct);
+      }
+      )
+    }
+  }
+}
 
 // PRODUCTS PAGES CREATION //
 function createProductsPages(productData) {
@@ -91,32 +115,17 @@ function createProductsPages(productData) {
       newProductPicture.src = productData[i].imageUrl;
       newProductDescription.innerHTML = productData[i].description;
       newProductName.innerHTML = productData[i].name;
-
       createLenses(productData[i]);
       setQuantity();
       productTotalPrice(productData[i]);
-
       newProductQuantitySelect.addEventListener('change', function () {
         productTotalPrice(productData[i]);
-      })
-
-      let buttonAddToCart = document.getElementById('btn-add-to-cart');
-      buttonAddToCart.addEventListener('click', function () {
-        let selectedProduct = {
-          selectedProductId: productData[i]._id,
-          selectedProductName: productData[i].name,
-          selectedProductPicture: productData[i].imageUrl,
-          selectedProductLenses: selectedLenses.value,
-          selectedProductPrice: productAmount,
-          selectedProductQuantity: newProductQuantitySelect.options[newProductQuantitySelect.selectedIndex].value,
-          selectedProductPriceForOne: productData[i].price / 100,
-        }
-        localStorage.setItem(i, JSON.stringify(selectedProduct));
-        console.log(selectedProduct);
       })
     }
   }
 }
+
+
 
 // REQUEST API //
 
@@ -128,7 +137,9 @@ async function getProducts() {
       let productsData = await response.json();
       console.log(productsData);
 
-      createProductsPages(productsData)
+      createProductsPages(productsData);
+      addToCart(productsData);
+
     }
     else {
       console.log(reponse.status)
@@ -138,4 +149,5 @@ async function getProducts() {
     console.log('erreur : ' + err);
   }
 }
-getProducts()
+getProducts();
+selectedLensesValue();
