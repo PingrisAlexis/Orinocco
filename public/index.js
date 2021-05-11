@@ -39,7 +39,7 @@ async function getProducts() {
     if (response.ok) {
       let productData = await response.json();
       console.log(productData);
-      createProductCards(productData)
+      createProductCards(productData);
     }
     else {
       console.log(reponse.status)
@@ -49,5 +49,5 @@ async function getProducts() {
     console.log('erreur : ' + err);
   }
 }
-getProducts()
+getProducts();
 console.log(localStorage);
