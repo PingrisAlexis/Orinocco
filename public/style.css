@@ -218,7 +218,7 @@ button {
 /* CART PAGE*/
 
 #cart-page-contenair {
-  max-width: 60rem;
+  max-width: 70rem;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -263,30 +263,21 @@ tbody {
   font-size: 1.6rem;
   background: #ffffff;
   border-radius: 3rem;
-  max-width: 70rem;
-}
-
-tbody {
-  display: flex;
-
 }
 
 tbody img {
   
   height: 8rem;
-  width: 14rem;
+  width: 15srem;
   border-radius: 3rem;
   object-fit: cover;
 }
 
-
-tr {
-  border-radius: 3rem;
-}
-
 th {
-  width: 30rem;
+  width: 20rem;
   border-radius: 3rem;
+  margin:2rem;
+
 }
 
 #selected-product-cart-button-delete {
@@ -349,8 +340,12 @@ tbody input {
   flex-flow: row wrap;
   margin: 2rem;
   justify-content: center;
-  text-align:left;
   box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+}
+
+.cart-page-form div {
+  display: flex;
+  justify-content: center;
 }
 
 .cart-page-form input {
@@ -360,17 +355,10 @@ tbody input {
   outline-style: none;
   margin: 0.5rem;
   width: 30rem;
-  border: 0.2r
+  border: 0.2rem;
+  justify-content: center;
 }
 
-.cart-page-form label,
-.cart-page-form textarea{
-    display: block;
-    width: 15rem;
-    float: left;
-    font-size: 1.6rem;
-    
-}
 
 .cart-page-form textarea {
   width: 31rem;
@@ -384,4 +372,26 @@ tbody input {
 
 input:invalid {
   border: 0.1rem dashed #333;
+}
+
+#btn-order,
+form h2 {
+  margin: 1rem;
+}
+/*Page Confirmation*/
+#confirmation-page-contenair {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+#confirmation-page-card {
+  margin-top: 3rem;
+  width: 50rem;
+  height: 50rem;
+  background: #f2f2f2;
+  border-radius: 3rem;
+  box-shadow:  0 0.5rem 0.5rem #d8d8d8;
 }
