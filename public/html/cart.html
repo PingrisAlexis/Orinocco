@@ -24,6 +24,7 @@
     <section id="cart-page-table">
       <table>
         <caption>Votre panier</caption>
+        <a href="confirm.html">azaaaaz</a>
         <div id="selected-product-cart-contenair"></div>
       </table>
     </section>
@@ -36,29 +37,27 @@
     <section class="cart-page-form">
         <form id="cart-form-validation">
           <h2>Vos coordonnées</h2>
+          
           <div>
-            <label for="user-name"></label>
-            <input type="text" minlength="2" id="user-name" name="user_name" placeholder="Nom">
+            <label for="user-lastname"></label>
+            <input type="text" minlength="2" id="user-lastname" name="user_lastname" placeholder="Nom">
           </div>
           <div>
             <label for="user-firstname"></label>
             <input type="text" minlength="2" id="user-firstname" name="user_firstname" placeholder="Prénom">
           </div>
           <div>
-            <label for="user-adress"></label>
-            <input type="text" id="user-adress" name="user-adress" placeholder="Adresse" >
-          </div>
-          <div>
-            <label for="user-postcode"></label>
-            <input id="user-postcode" name="user-postcode" placeholder="Code postal" pattern="[0-9]{5}" type="text"/>
+            <label for="user-address"></label>
+            <input type="text" id="user-address" name="user-address" placeholder="Adresse"s>
           </div>
           <div>
             <label for="user-city"></label>
-            <input type="text" id="user-city" name="user-city" placeholder="Ville" >
+            <input type="text" id="user-city" name="user-city" placeholder="Ville">
           </div>
           <div>
-            <label for="user-mail"></label>
-            <input type="email" id="user-mail" name="user-email" placeholder="Adresse email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}">
+            <label for="user-email"></label>
+            <input type="email" id="user-email" name="user-email" placeholder="Adresse email">
+            <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}" -->
           </div>
           <div>
             <button id="btn-order">Commander</button>
