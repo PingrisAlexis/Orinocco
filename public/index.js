@@ -1,28 +1,39 @@
+//Déclaration mode strict
 "use strict";
-// let url = "https://ab-p5-api.herokuapp.com/api/cameras?fbclid=IwAR2EC7RnIF-UwO5vP09FtcDKNvagdHVRBGp53bX6bEkZ_CVhn6v37oJ1CFs";
+//Déclaration des variables
+let productsCardsContenair;
+let newProductPageLink;
+let newProductCard;
+let newProductPicture;
+let newProductInformations;
+let newProductName;
+let newProductDescription;
 
-// PRODUCTS CARDS CREATION //
+//Création de la structure HTML de la page d'accueil
+function createStructureProductCards() {
 
+  //Création des éléments HTML
+  productsCardsContenair = document.getElementById("products-cards-contenair");
+  newProductPageLink = document.createElement("a");
+  newProductCard = document.createElement("figure");
+  newProductPicture = document.createElement("img");
+  newProductInformations = document.createElement("figcaption");
+  newProductName = document.createElement("h2");
+  newProductDescription = document.createElement("p");
+
+  //Créations des noeuds HTML
+  productsCardsContenair.appendChild(newProductPageLink);
+  newProductPageLink.appendChild(newProductCard);
+  newProductCard.appendChild(newProductPicture);
+  newProductCard.appendChild(newProductInformations);
+  newProductInformations.appendChild(newProductName);
+  newProductInformations.appendChild(newProductDescription);
+}
+
+//Appel de la structure HTML + implantation des données selon la boucle 
 function createProductCards(productData) {
   for (let i = 0; i < productData.length; i++) {
-    // Initialisation HTML structure
-    let productsCardsContenair = document.getElementById("products-cards-contenair");
-    let newProductPageLink = document.createElement("a");
-    let newProductCard = document.createElement("figure");
-    let newProductPicture = document.createElement("img");
-    let newProductInformations = document.createElement("figcaption");
-    let newProductName = document.createElement("h2");
-    let newProductDescription = document.createElement("p");
-    // Create Products Cards Link
-    productsCardsContenair.appendChild(newProductPageLink);
-    // Create Products Cards
-    newProductPageLink.appendChild(newProductCard);
-
-    newProductCard.appendChild(newProductPicture);
-    newProductCard.appendChild(newProductInformations);
-    newProductInformations.appendChild(newProductName);
-    newProductInformations.appendChild(newProductDescription);
-
+    createStructureProductCards();
     newProductPageLink.href = "html/product.html?id=" + productData[i]._id;
     newProductPicture.src = productData[i].imageUrl;
     newProductName.innerHTML = productData[i].name;
@@ -30,8 +41,7 @@ function createProductCards(productData) {
   }
 }
 
-// API REQUEST //
-
+// API request: Récupération des données des produits à afficher
 async function getProducts() {
   try {
     let response = await fetch("http://localhost:3000/api/cameras");
@@ -49,5 +59,6 @@ async function getProducts() {
     console.log('erreur : ' + err);
   }
 }
+
+//Appel fonction
 getProducts();
-console.log(localStorage);
