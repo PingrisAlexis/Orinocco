@@ -13,29 +13,21 @@
   <link href="../style.css" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="confirmation-page-header">
     <nav>
-      <a href="../index.html">
         <img src="../img/logo.png" alt="logo Orinoco">
-      </a>
     </nav>
   </header>
   <main id= "confirmation-page-contenair">
-    <!-- <section id="confirmation-page-card">
-      <p id="confirmation-page-title">Votre commande n°</p>
-      <p id="confirmation-page-description"></p>
-    </section> -->
   </main> 
     <main id= "confirmation-page-contenair">
-
-      <div>
-          <p id="orderId"></p>
-          <p id="total-price"></p>
-          <p><span class="title-product"> A bientôt chez Orinoco !</span> </p>
-          <button class="btn btn-warning" id="btn-confirmation">Retour à la page d'accueil</button>
-      </div>
-
-  
+      <section id="confirmation-page-card">
+        <p>Numéro de commande:</p>
+          <p id="confirmation-page-order-id"></p>
+          <p>Montant total:</p>
+          <p id="confirmation-page-order-amount"></p>
+          <button id="btn-reset">Retour à la page d'accueil</button>
+        </section>
   </main>
-  <script src="../js/confirm.js"></script>
+  <script src="../js/confirmation.js"></script>
 </body>
