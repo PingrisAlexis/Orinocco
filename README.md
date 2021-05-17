@@ -36,7 +36,7 @@
 - Validating data from external sources.
 
 - Interacting with a web service with JavaScript.
-- 
+
 ### Installation:
 
 Clone this repo. From within the project folder, run `npm install`. You 
