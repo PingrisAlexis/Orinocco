@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Panier - Oniroco</title>
+  <title>Shopping cart - Oniroco</title>
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
@@ -23,46 +23,52 @@
   <main id="cart-page-contenair">
     <section id="cart-page-table">
       <table>
-        <caption>Votre panier</caption>
+        <caption>Your shopping cart</caption>
         <div id="selected-product-cart-contenair"></div>
       </table>
     </section>
     <section class="cart-page-total-price">
-        <h2>Prix total :</h2>
+        <h2>Total cost :</h2>
         <div class="cart-page-total-price-bloc">
           <p id="cart-total-amount"></p>
         </div>
     </section>
     <section class="cart-page-form">
         <form id="cart-form-validation">
-          <h2>Vos coordonnées</h2>
+          <h2>Your contact details</h2>
           <div>
             <label for="user-lastname"></label>
-            <input type="text" minlength="2" id="user-lastname" name="user_lastname" placeholder="Nom">
+            <input type="text" minlength="2" id="user-lastname" name="user_lastname" placeholder="Lastname">
           </div>
           <div>
             <label for="user-firstname"></label>
-            <input type="text" minlength="2" id="user-firstname" name="user_firstname" placeholder="Prénom">
+            <input type="text" minlength="2" id="user-firstname" name="user_firstname" placeholder="Firstname">
           </div>
           <div>
             <label for="user-address"></label>
-            <input type="text" id="user-address" name="user-address" placeholder="Adresse"s>
+            <input type="text" id="user-address" name="user-address" placeholder="Address">
           </div>
           <div>
             <label for="user-city"></label>
-            <input type="text" id="user-city" name="user-city" placeholder="Ville">
+            <input type="text" id="user-city" name="user-city" placeholder="City">
           </div>
           <div>
             <label for="user-email"></label>
-            <input type="email" id="user-email" name="user-email" placeholder="Adresse email">
-            <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}" -->
+            <input type="email" id="user-email" name="user-email" placeholder="Mail address">
           </div>
           <div>
-            <button id="btn-order">Commander</button>
+            <button id="btn-order">Order</button>
           </div>
         </form>
       </section>
   </main>
+  <footer>
+    <nav>
+    <a href="index.html">
+      <img src="../img/logo.png" alt="logo Orinoco">
+    </a>
+  </nav>
+  </footer>
   <script src="../js/cart.js"></script>
 </body>
 </html>
