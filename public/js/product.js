@@ -1,12 +1,15 @@
-//Déclaration du mode strict
+//Strict mode statement
 "use strict";
 
-//Création d'un tableau vide pour les prix
+//Creating an empty table for prices
 let arrayPrice = [];
 
-//Déclaration des variables
+//Declaration of variables
 let productAmount;
-//Déclaration des variables et création des éléments HTML de la page produit
+let buttonAddToCart = document.getElementById('btn-add-to-cart');
+let idProduct = getProductsIdInUrl();
+
+//Declaration of variables and creation of HTML elements
 let productPageContenair = document.getElementById("product-page-contenair");
 let newProductCard = document.createElement("figure");
 let newProductPicture = document.createElement("img");
@@ -15,20 +18,9 @@ let newProductName = document.createElement("h2");
 let newProductDescription = document.createElement("p");
 let newProductLensesSelect = document.createElement("select");
 let newProductQuantitySelect = document.createElement("select");
-let newProductQuantityOptionOne = document.createElement("option");
-let newProductQuantityOptionTwo = document.createElement("option");
-let newProductQuantityOptionThree = document.createElement("option");
-let newProductQuantityOptionFour = document.createElement("option");
-let newProductQuantityOptionFive = document.createElement("option");
 let newProductPrice = document.createElement("span");
-let buttonAddToCart = document.getElementById('btn-add-to-cart');
 
-//Création des noeuds HTML
-productPageContenair.appendChild(newProductCard);
-newProductCard.appendChild(newProductPicture);
-newProductCard.appendChild(newProductInformations);
-newProductInformations.appendChild(newProductName);
-newProductInformations.appendChild(newProductDescription);
+//Creation of HTML nodes
 productPageContenair.appendChild(newProductCard);
 newProductCard.appendChild(newProductPicture);
 newProductCard.appendChild(newProductInformations);
@@ -36,16 +28,17 @@ newProductInformations.appendChild(newProductName);
 newProductInformations.appendChild(newProductDescription);
 newProductInformations.appendChild(newProductLensesSelect);
 newProductInformations.appendChild(newProductPrice);
+newProductInformations.appendChild(newProductQuantitySelect);
 
-//Inmplantation des données dans la structure HTML
+//Hydration of the HTML structure
 function hydrateProductPage(productData) {
   newProductPicture.src = productData.imageUrl;
   newProductDescription.innerHTML = productData.description;
   newProductName.innerHTML = productData.name;
 }
 
-//Récupération des lentilles, puis incrémentation de la structure HTML
-function createLenses(product) {
+//Recovery of the lenses, then hydratation, and creation of the HTML structure
+function getLenses(product) {
   for (let i = 0; i < product.lenses.length; i++) {
     let newProductLenses = document.createElement("option");
     newProductLenses.innerHTML = product.lenses[i];
@@ -53,7 +46,7 @@ function createLenses(product) {
   }
 }
 
-//Ecoute de la valeur lentille selectionée
+//Listening to the selected lens value
 let selectedLenses = document.querySelector('select');
 function selectedLensesValue() {
   selectedLenses.addEventListener('change', function () {
@@ -61,48 +54,34 @@ function selectedLensesValue() {
   })
 }
 
-//Calcul du montant total selon le nombre de produits + modification du montant total
-function productTotalPrice(oneProductData) {
+//Calculation of the total amount, then hydrate of the HTML structure
+function productTotalAmount(oneProductData) {
   let productQuantity = newProductQuantitySelect.options[newProductQuantitySelect.selectedIndex].value;
   let productPrice = oneProductData.price / 100;
   productAmount = Number(productPrice * productQuantity);
   newProductPrice.innerHTML = `${productAmount} €`;
 }
 
-//Gestion quantité article
-function setProductQuantity() {
+//Creation of the quantity choice, then listening and hydratation of the HTML structure
+function productQuantity() {
+  let productQuantity = ["1", "2", "3", "4", "5"];
 
-  // Création structure HTML gestion quantité
-  newProductInformations.appendChild(newProductQuantitySelect);
-  newProductQuantitySelect.appendChild(newProductQuantityOptionOne);
-  newProductQuantitySelect.appendChild(newProductQuantityOptionTwo);
-  newProductQuantitySelect.appendChild(newProductQuantityOptionThree);
-  newProductQuantitySelect.appendChild(newProductQuantityOptionFour);
-  newProductQuantitySelect.appendChild(newProductQuantityOptionFive);
-
-  // Création du <select> et du nombre d'articles à ajouter
-  newProductQuantitySelect.id = "selected-product-cart-quantity-select";
-  newProductQuantityOptionOne.value = "1";
-  newProductQuantityOptionOne.text = "1";
-  newProductQuantityOptionTwo.value = "2";
-  newProductQuantityOptionTwo.text = "2";
-  newProductQuantityOptionThree.value = "3";
-  newProductQuantityOptionThree.text = "3";
-  newProductQuantityOptionFour.value = "4";
-  newProductQuantityOptionFour.text = "4";
-  newProductQuantityOptionFive.value = "5";
-  newProductQuantityOptionFive.text = "5";
+  for (let i = 0; i < productQuantity.length; i++) {
+    let newProductQuantityOption = document.createElement("option");
+    newProductQuantityOption.value = productQuantity[i];
+    newProductQuantityOption.text = productQuantity[i];
+    newProductQuantitySelect.appendChild(newProductQuantityOption);
+  }
 }
 
-//Récupération de l'ID dans l'URL afin de rediriger dynamiquement vers la page produits correspondante
+//Recovery of the ID in the URL to dynamically redirect to the corresponding product page
 function getProductsIdInUrl() {
   let urlSearch = new URLSearchParams(window.location.search);
 
   return urlSearch.get("id");
 }
-let idProduct = getProductsIdInUrl();
 
-//Si l'article est ajouté au panier, récupération des données du produits selon ID correspondant, puis envoit au localStorage
+//If the item is added to the shopping cart, retrieve the product data according to the corresponding ID, then send to localStorage
 function addToCart(productData) {
   for (let i = 0; i < productData.length; i++) {
     if (productData[i]._id === idProduct) {
@@ -116,30 +95,29 @@ function addToCart(productData) {
           selectedProductQuantity: newProductQuantitySelect.options[newProductQuantitySelect.selectedIndex].value,
           selectedProductUnityPrice: productData[i].price / 100,
         }
-        localStorage.setItem(i, JSON.stringify(selectedProduct));
-        console.log(selectedProduct);
+        localStorage.setItem(i + selectedLenses.value, JSON.stringify(selectedProduct));
       }
       )
     }
   }
 }
 
-//Appel des fonctions 
+//Activation of the functions according to the ID 
 function createProductsPages(productData) {
   for (let i = 0; i < productData.length; i++) {
     if (productData[i]._id === idProduct) {
       hydrateProductPage(productData[i]);
-      createLenses(productData[i]);
-      setProductQuantity();
-      productTotalPrice(productData[i]);
+      getLenses(productData[i]);
+      productQuantity();
+      productTotalAmount(productData[i]);
       newProductQuantitySelect.addEventListener('change', function () {
-        productTotalPrice(productData[i]);
+        productTotalAmount(productData[i]);
       })
     }
   }
 }
 
-//Requête API: Récupération des données des produits
+//API request: Product data retrieval
 async function getProducts() {
   try {
     let response = await fetch("http://localhost:3000/api/cameras");
@@ -148,6 +126,8 @@ async function getProducts() {
       let productsData = await response.json();
       createProductsPages(productsData);
       addToCart(productsData);
+      selectedLensesValue();
+
     }
     else {
       console.log(reponse.status)
@@ -158,6 +138,5 @@ async function getProducts() {
   }
 }
 
-//Appel des fonctions
+//Calling the function
 getProducts();
-selectedLensesValue();
