@@ -1,7 +1,7 @@
-//Déclaration mode strict
+//Strict mode statement
 "use strict";
 
-//Déclaration des variables
+//Declaration of variables
 let cartData;
 let arrayPrice = [];
 let products = [];
@@ -29,39 +29,18 @@ let addressValue;
 let cityValue;
 let emailValue;
 
-//Création d'une classe pour la structure de l'objet contact
+//Creation of a class for the structure of the contact object
 class contactData {
-  constructor(name, surname, address, city, email) {
-    this.firstName = name;
-    this.lastName = surname;
+  constructor(lastName, firstName, address, city, email) {
+    this.lastName = lastName;
+    this.firstName = firstName;
     this.address = address;
     this.city = city;
     this.email = email;
   }
 }
 
-//Récuperation des données du storage + implantation des données recues dans la structure HTML
-function createProductsCart() {
-  //Si panier vide, on redirige sur la page d'accueil
-  if (localStorage.length === 0) {
-    alert("Votre panier est actuellement vide, vous allez être redirigé vers la page d'accueil!");
-    window.location.href = "../index.html";
-  }
-  //Si le panier contient minimum un produit, on boucle sur le nombre de produits afin des récuperer les données recquises
-  else {
-    for (let i = 0; i < localStorage.length; i++) {
-      // Récupération des données stockées des produits ajoutés au panier
-      let storageKey = localStorage.key(i);
-      let storageJson = localStorage.getItem(storageKey);
-      cartData = JSON.parse(storageJson);
-      //Activation de la création de la structure HTML
-      structureAndHydrateProductCart(storageKey, cartData);
-      calculTotalPrice();
-    }
-  }
-}
-
-//Implantation des données dans la structure HTML
+//Hydration of the HTML structure
 function hydrateCartPage() {
   selectedProductCartName.innerHTML = cartData.selectedProductName;
   selectedProductCartPicture.src = cartData.selectedProductPicture;
@@ -69,9 +48,9 @@ function hydrateCartPage() {
   selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductQuantity} x ${cartData.selectedProductUnityPrice}€ = ${cartData.selectedProductTotalPrice}€`;
 }
 
-//Création de la structure HTML
+//Creation and hydratation of HTML elements
 function structureAndHydrateProductCart(storageKey) {
-  //Création des éléments HTML de la page panier
+  //Creation of HTML elements
   selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
   selectedProductCartBlock = document.createElement("tbody");
   selectedProductCartTr = document.createElement("tr");
@@ -84,10 +63,10 @@ function structureAndHydrateProductCart(storageKey) {
   selectedProductCartTotalAmount = document.getElementById("cart-total-amount");
   selectedProductCartButtonDelete.id = "selected-product-cart-button-delete";
 
-  //Inmplantation des données dans la structure HTML
+  //Calling of the function
   hydrateCartPage();
 
-  //Création des noeuds pour structure HTML
+  //Creation of HTML nodes
   selectedProductCartContenair.appendChild(selectedProductCartBlock);
   selectedProductCartBlock.appendChild(selectedProductCartTr);
   selectedProductCartTr.appendChild(selectedProductCartName);
@@ -98,17 +77,30 @@ function structureAndHydrateProductCart(storageKey) {
   selectedProductCartTr.appendChild(selectedProductCartButtonDeleteColumn);
   selectedProductCartButtonDeleteColumn.appendChild(selectedProductCartButtonDelete);
 
-  //Création d'un boutton effacer article pour chaques lignes présentes dans le panier
+  //Creation of a delete product button for each line in the shopping cart, and in the local storage
   deleteButton(selectedProductCartButtonDelete, storageKey);
 }
 
-//Calcul du prix des produits dans le  tableau arrayPrice, puis affichage du résultat dans la struture HTML
+//Calculate of the total cost, then hydratatation of HTML structure
 function calculTotalPrice() {
   arrayPrice.push(cartData.selectedProductTotalPrice);
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   cartTotalAmount = arrayPrice.reduce(reducer, 0);
 
   selectedProductCartTotalAmount.innerHTML = `${cartTotalAmount} €`;
+}
+
+//Removing the product from the HTML structure
+function deleteSelectedProductRow(selectedProductCartButtonDelete) {
+  let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
+  deleteSelectedProduct.parentNode.removeChild(deleteSelectedProduct);
+}
+
+//Removing the product from the storage
+function deleteCart(i) {
+  localStorage.removeItem(i);
+  console.log(i);
+  location.reload();
 }
 
 //Ecoute de la demande de suppression des articles, suppression de la ligne panier et du storage via la clé du produit
@@ -119,50 +111,32 @@ function deleteButton(selectedProductCartButtonDelete, storageKey) {
   })
 }
 
-//Suppression de l'article de la structure HTML
-function deleteSelectedProductRow(selectedProductCartButtonDelete) {
-  let deleteSelectedProduct = selectedProductCartButtonDelete.parentNode.parentNode;
-  deleteSelectedProduct.parentNode.removeChild(deleteSelectedProduct);
-}
-
-//Suppression de l'article du localstorage
-function deleteCart(i) {
-  localStorage.removeItem(i);
-  console.log(i);
-  location.reload();
-}
-
-//Contrôle des données du formulaire
+//Check of the form data, then calling a function (line 133)
 function controlForm() {
   let buttonOrder = document.getElementById('btn-order');
-  //Ecoute du click sur le boutton "commander"
   buttonOrder.addEventListener('click', function () {
     lastNameValue = lastName.value;
     firstNameValue = firstName.value;
     addressValue = address.value;
     cityValue = city.value;
     emailValue = email.value;
-    //si le formulaire est valide, on pousse le montant de total du panier dans le local storage, et on active la fonction userAndProductData() (ligne 155)
     if (lastNameValue, firstNameValue, addressValue, cityValue, emailValue != "" && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailValue)) {
       userAndProductData();
       localStorage.setItem("orderAmount", cartTotalAmount);
-      //Si le formulaire n'est pas valide, on demande à l'utilisateur de corriger la saisie
     } else {
       alert("Veuillez renseigner vos coordonnées.");
     }
   })
 }
 
-//Récupération des données clients et produits,
+//Recovery of customer and product data, then calling a function (line 140)
 function userAndProductData() {
-  //Récupération et remplissage de l'objet contactData. 
-  contact = new contactData(firstNameValue, lastNameValue, addressValue, cityValue, emailValue);
-  //Convertion des données contact et products en JSON -> OrderData. Puis activation fonction postForm(OrderData).
+  contact = new contactData(lastNameValue, firstNameValue, addressValue, cityValue, emailValue);
   orderData = JSON.stringify({ contact, products });
   postForm(orderData);
 }
 
-//Requete POST
+//API request, method post. Recovery an order id, and redirection to confirmation page
 async function postForm(orderData) {
   try {
     let response = await fetch("http://localhost:3000/api/cameras/order", {
@@ -186,6 +160,24 @@ async function postForm(orderData) {
   }
 }
 
-//Appel des fonctions
+//Recovery of product data, and call the functions
+function createProductsCart() {
+  if (localStorage.length === 0) {
+    alert("Your shopping cart is currently empty, you will be redirected to the home page!");
+    window.location.href = "../index.html";
+  }
+  else {
+    for (let i = 0; i < localStorage.length; i++) {
+      let storageKey = localStorage.key(i);
+      let storageJson = localStorage.getItem(storageKey);
+      cartData = JSON.parse(storageJson);
+
+      structureAndHydrateProductCart(storageKey, cartData);
+      calculTotalPrice();
+    }
+  }
+}
+
+//Calling the functions
 createProductsCart();
 controlForm();

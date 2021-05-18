@@ -1,6 +1,7 @@
-//Déclaration mode strict
+//Strict mode statement
 "use strict";
-//Déclaration des variables
+
+//Declaration of variables
 let productsCardsContenair;
 let newProductPageLink;
 let newProductCard;
@@ -9,10 +10,10 @@ let newProductInformations;
 let newProductName;
 let newProductDescription;
 
-//Création de la structure HTML de la page d'accueil
-function createStructureProductCards() {
+//Creation of the HTML structure of the home page
+function structureProductCards() {
 
-  //Création des éléments HTML
+  //Creation of HTML elements
   productsCardsContenair = document.getElementById("products-cards-contenair");
   newProductPageLink = document.createElement("a");
   newProductCard = document.createElement("figure");
@@ -21,7 +22,7 @@ function createStructureProductCards() {
   newProductName = document.createElement("h2");
   newProductDescription = document.createElement("p");
 
-  //Créations des noeuds HTML
+  //Création of HTML nodes
   productsCardsContenair.appendChild(newProductPageLink);
   newProductPageLink.appendChild(newProductCard);
   newProductCard.appendChild(newProductPicture);
@@ -30,25 +31,29 @@ function createStructureProductCards() {
   newProductInformations.appendChild(newProductDescription);
 }
 
-//Appel de la structure HTML + implantation des données selon la boucle 
+//Hydration of the HTML structure
+function hydrateProductCards(productData) {
+  newProductPageLink.href = "html/product.html?id=" + productData._id;
+  newProductPicture.src = productData.imageUrl;
+  newProductName.innerHTML = productData.name;
+  newProductDescription.innerHTML = productData.description;
+}
+
+//Calling functions according to iterative structure
 function createProductCards(productData) {
   for (let i = 0; i < productData.length; i++) {
-    createStructureProductCards();
-    newProductPageLink.href = "html/product.html?id=" + productData[i]._id;
-    newProductPicture.src = productData[i].imageUrl;
-    newProductName.innerHTML = productData[i].name;
-    newProductDescription.innerHTML = productData[i].description;
+    structureProductCards();
+    hydrateProductCards(productData[i]);
   }
 }
 
-// API request: Récupération des données des produits à afficher
+// API request: Recovery of the data of the products to be displayed
 async function getProducts() {
   try {
     let response = await fetch("http://localhost:3000/api/cameras");
     console.log(response);
     if (response.ok) {
       let productData = await response.json();
-      console.log(productData);
       createProductCards(productData);
     }
     else {
@@ -60,5 +65,5 @@ async function getProducts() {
   }
 }
 
-//Appel fonction
+//Calling function
 getProducts();
