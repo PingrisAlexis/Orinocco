@@ -27,13 +27,13 @@ body {
 
 header {
   width: 100%;
-  /* height: 12rem; */
   border-radius: 0 0 3rem 3rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background: #f2f2f2;
   box-shadow:  0 0.5rem 0.5rem #d8d8d8;
+  padding-right: 1rem;
 }
 
 header nav {
@@ -54,8 +54,7 @@ header img {
 }
 
 header a {
-  padding-right: 5rem;
-  font-family: 'Finger Paint';
+  font-family: 'Finger Paint', cursive;
   font-weight: 600;
 }
 
@@ -69,7 +68,6 @@ footer {
 }
 
 footer nav{
-  width: 100wh;
   height: 12rem;
   border-radius: 3rem 3rem 0 0;
   display: flex;
@@ -78,7 +76,6 @@ footer nav{
   background: #f2f2f2;
   position: relative;
   bottom:0rem;
-  /* margin-top: 2rem; */
 }
 
 footer img {
@@ -165,7 +162,7 @@ span {
   flex-flow: column wrap;
   margin: auto;
   margin-top: 5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
   box-shadow: 0 0.5rem 0.5rem #d8d8d8;
 }
 
@@ -235,6 +232,9 @@ button {
   font-size: 2rem;
   font-family: cursive;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* CART PAGE*/
@@ -249,14 +249,12 @@ button {
 #cart-page-table {
   width: 100%;
   display: flex;
-  flex-flow: column-reverse;
 }
 
 table {
   background: #f2f2f2;
   border-radius: 3rem;
   margin-top: 2rem;
-  margin-bottom: 1rem;
   display: flex;
   flex-flow: column;
   background: #f2f2f2;
@@ -272,8 +270,10 @@ caption {
 }
 
 thead {
-  box-shadow: 0 0.5rem 0.5rem #d8d8d8;
+font-size: 2.5rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 #selected-product-cart-contenair {
@@ -281,7 +281,7 @@ thead {
   background:#ffffff;
 }
 
-thead,
+
 tbody {
   font-size: 1.6rem;
   background: #ffffff;
@@ -295,7 +295,7 @@ tbody img {
   object-fit: cover;
 }
 
-th {
+tbody th {
   width: 20rem;
   border-radius: 3rem;
   margin:2rem;
@@ -324,7 +324,6 @@ tbody input {
   height: 2rem;
 }
 
-
 .cart-page-total-price {
   display: flex;
   justify-content: space-around;
@@ -346,6 +345,7 @@ tbody input {
   align-items: center;
   padding: 1rem;
 }
+
 .cart-page-total-price-bloc p {
   padding-bottom: 1rem;
 }
@@ -364,11 +364,6 @@ tbody input {
   justify-content: center;
   box-shadow: 0 0.5rem 0.5rem #d8d8d8;
 }
-/* 
-.cart-page-form div {
-  display: flex;
-  justify-content: center;
-} */
 
 .cart-page-form input {
   height: 3rem;
@@ -414,7 +409,6 @@ form h2 {
   text-align: center;
 }
 
-
 #confirmation-page-card {
   margin-top: 3rem;
   padding-top: 3rem;
@@ -423,6 +417,11 @@ form h2 {
   background: #f2f2f2;
   border-radius: 3rem;
   box-shadow:  0 0.5rem 0.5rem #d8d8d8;
+}
+
+#confirmation-page-card button {
+  margin: auto;
+  margin-top: 6rem;
 }
 
 #confirmation-page-order-id{
