@@ -2,6 +2,7 @@
 "use strict";
 
 //Declaration of variables
+let productData;
 let cartData;
 let arrayPrice = [];
 let products = [];
@@ -18,38 +19,20 @@ let selectedProductCartRowPrice;
 let selectedProductCartButtonDeleteColumn;
 let selectedProductCartButtonDelete;
 let selectedProductCartTotalAmount;
-const firstName = document.getElementById('user-firstname');
-const lastName = document.getElementById('user-lastname');
-const address = document.getElementById('user-address');
-const city = document.getElementById('user-city');
-const email = document.getElementById('user-email');
-let lastNameValue;
-let firstNameValue;
-let addressValue;
-let cityValue;
-let emailValue;
+let firstName = document.getElementById('user-firstname');
+let lastName = document.getElementById('user-lastname');
+let address = document.getElementById('user-address');
+let city = document.getElementById('user-city');
+let email = document.getElementById('user-email');
 
-//Creation of a class for the structure of the contact object
-class contactData {
-  constructor(lastName, firstName, address, city, email) {
-    this.lastName = lastName;
-    this.firstName = firstName;
-    this.address = address;
-    this.city = city;
-    this.email = email;
-  }
-}
-
-//Hydration of the HTML structure
-function hydrateCartPage() {
-  selectedProductCartName.innerHTML = cartData.selectedProductName;
-  selectedProductCartPicture.src = cartData.selectedProductPicture;
-  selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
-  selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductQuantity} x ${cartData.selectedProductUnityPrice}€ = ${cartData.selectedProductTotalPrice}€`;
+//Push product Id
+function addIdProducts(cartData) {
+  products.push(cartData.selectedProductId);
 }
 
 //Creation and hydratation of HTML elements
 function structureAndHydrateProductCart(storageKey) {
+
   //Creation of HTML elements
   selectedProductCartContenair = document.getElementById("selected-product-cart-contenair");
   selectedProductCartBlock = document.createElement("tbody");
@@ -64,7 +47,10 @@ function structureAndHydrateProductCart(storageKey) {
   selectedProductCartButtonDelete.id = "selected-product-cart-button-delete";
 
   //Calling of the function
-  hydrateCartPage();
+  selectedProductCartName.innerHTML = cartData.selectedProductName;
+  selectedProductCartPicture.src = cartData.selectedProductPicture;
+  selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
+  selectedProductCartRowPrice.innerHTML = `${cartData.selectedProductQuantity} x ${cartData.selectedProductUnityPrice}€ = ${cartData.selectedProductTotalPrice}€`;
 
   //Creation of HTML nodes
   selectedProductCartContenair.appendChild(selectedProductCartBlock);
@@ -86,7 +72,6 @@ function calculTotalPrice() {
   arrayPrice.push(cartData.selectedProductTotalPrice);
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   cartTotalAmount = arrayPrice.reduce(reducer, 0);
-
   selectedProductCartTotalAmount.innerHTML = `${cartTotalAmount} €`;
 }
 
@@ -99,11 +84,10 @@ function deleteSelectedProductRow(selectedProductCartButtonDelete) {
 //Removing the product from the storage
 function deleteCart(i) {
   localStorage.removeItem(i);
-  console.log(i);
   location.reload();
 }
 
-//Ecoute de la demande de suppression des articles, suppression de la ligne panier et du storage via la clé du produit
+//Removing item from storage and cart
 function deleteButton(selectedProductCartButtonDelete, storageKey) {
   selectedProductCartButtonDelete.addEventListener('click', function () {
     deleteSelectedProductRow(selectedProductCartButtonDelete);
@@ -114,15 +98,15 @@ function deleteButton(selectedProductCartButtonDelete, storageKey) {
 //Check of the form data, then calling a function (line 133)
 function controlForm() {
   let buttonOrder = document.getElementById('btn-order');
-  buttonOrder.addEventListener('click', function () {
-    lastNameValue = lastName.value;
-    firstNameValue = firstName.value;
-    addressValue = address.value;
-    cityValue = city.value;
-    emailValue = email.value;
-    if (lastNameValue, firstNameValue, addressValue, cityValue, emailValue != "" && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailValue)) {
+  buttonOrder.addEventListener('click', function (event) {
+    event.preventDefault();
+    lastName = lastName.value;
+    firstName = firstName.value;
+    address = address.value;
+    city = city.value;
+    email = email.value;
+    if (lastName, firstName, address, city, email != "" && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
       userAndProductData();
-      localStorage.setItem("orderAmount", cartTotalAmount);
     } else {
       alert("Veuillez renseigner vos coordonnées.");
     }
@@ -131,7 +115,7 @@ function controlForm() {
 
 //Recovery of customer and product data, then calling a function (line 140)
 function userAndProductData() {
-  contact = new contactData(lastNameValue, firstNameValue, addressValue, cityValue, emailValue);
+  contact = { lastName, firstName, address, city, email };
   orderData = JSON.stringify({ contact, products });
   postForm(orderData);
 }
@@ -150,6 +134,7 @@ async function postForm(orderData) {
       let responseId = await response.json();
       let orderId = responseId.orderId;
       localStorage.setItem("orderId", orderId);
+      localStorage.setItem("orderAmount", cartTotalAmount);
       window.location.href = "confirmation.html";
     } else {
       console.error('Retour du serveur : ', response.status);
@@ -171,13 +156,38 @@ function createProductsCart() {
       let storageKey = localStorage.key(i);
       let storageJson = localStorage.getItem(storageKey);
       cartData = JSON.parse(storageJson);
-
-      structureAndHydrateProductCart(storageKey, cartData);
+      addIdProducts(cartData);
+      structureAndHydrateProductCart(storageKey);
       calculTotalPrice();
     }
   }
 }
 
+//Checking if the price is the same than localstorage and api
+async function controlPrice() {
+  let response = await fetch("http://localhost:3000/api/cameras");
+  if (response.ok) {
+    productData = await response.json();
+    for (let i = 0; i < localStorage.length; i++) {
+      if (cartData.selectedProductId === productData[i]._id && cartData.selectedProductUnityPrice !== productData[i].price / 100) {
+        console.log(cartData.selectedProductId);
+        console.log(productData[i]._id);
+        console.log(cartData.selectedProductUnityPrice);
+        console.log(productData[i].price / 100);
+
+        alert("the prices have changed, your have to shop again ! sorry ...");
+        window.location.href = "../index.html";
+        localStorage.clear();
+      }
+      else {
+        console.log("prices haven't changed");
+      }
+    }
+  }
+}
+
+
 //Calling the functions
+controlPrice();
 createProductsCart();
 controlForm();
