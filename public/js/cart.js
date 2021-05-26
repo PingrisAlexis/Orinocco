@@ -25,11 +25,6 @@ let address = document.getElementById('user-address');
 let city = document.getElementById('user-city');
 let email = document.getElementById('user-email');
 
-//Push product Id
-function addIdProducts(cartData) {
-  products.push(cartData.selectedProductId);
-}
-
 //Creation and hydratation of HTML elements
 function structureAndHydrateProductCart(storageKey) {
 
@@ -108,12 +103,17 @@ function controlForm() {
     if (lastName, firstName, address, city, email != "" && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
       userAndProductData();
     } else {
-      alert("Veuillez renseigner vos coordonnées.");
+      alert("Please fill your contact details.");
     }
   })
 }
 
-//Recovery of customer and product data, then calling a function (line 140)
+//Push product Id to products array
+function addIdProducts(cartData) {
+  products.push(cartData.selectedProductId);
+}
+
+//Recovery of contact object and products array, then calling a function
 function userAndProductData() {
   contact = { lastName, firstName, address, city, email };
   orderData = JSON.stringify({ contact, products });
@@ -163,7 +163,7 @@ function createProductsCart() {
   }
 }
 
-//Checking if the price is the same than localstorage and api
+//Checking if the price is the same between user's storage and api
 async function controlPrice() {
   let response = await fetch("http://localhost:3000/api/cameras");
   if (response.ok) {
@@ -175,12 +175,12 @@ async function controlPrice() {
         console.log(cartData.selectedProductUnityPrice);
         console.log(productData[i].price / 100);
 
-        alert("the prices have changed, your have to shop again ! sorry ...");
-        window.location.href = "../index.html";
+        alert("Welcome back! Sorry about that but prices have changed, your have to shop again...");
         localStorage.clear();
+        window.location.href = "../index.html";
       }
       else {
-        console.log("prices haven't changed");
+        console.log("The products prices haven't changed between user's storage and api.");
       }
     }
   }
