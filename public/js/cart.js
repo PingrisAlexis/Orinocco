@@ -25,11 +25,6 @@ let address = document.getElementById('user-address');
 let city = document.getElementById('user-city');
 let email = document.getElementById('user-email');
 
-//Push product Id
-function addIdProducts(cartData) {
-  products.push(cartData.selectedProductId);
-}
-
 //Creation and hydratation of HTML elements
 function structureAndHydrateProductCart(storageKey) {
 
@@ -113,7 +108,12 @@ function controlForm() {
   })
 }
 
-//Recovery of customer and product data, then calling a function (line 140)
+//Push product Id to products array
+function addIdProducts(cartData) {
+  products.push(cartData.selectedProductId);
+}
+
+//Recovery of contact object and products array, then calling a function
 function userAndProductData() {
   contact = { lastName, firstName, address, city, email };
   orderData = JSON.stringify({ contact, products });
