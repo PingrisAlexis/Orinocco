@@ -41,7 +41,7 @@ function structureAndHydrateProductCart(storageKey) {
   selectedProductCartTotalAmount = document.getElementById("cart-total-amount");
   selectedProductCartButtonDelete.id = "selected-product-cart-button-delete";
 
-  //Calling of the function
+  //Hydratation of HTML elements
   selectedProductCartName.innerHTML = cartData.selectedProductName;
   selectedProductCartPicture.src = cartData.selectedProductPicture;
   selectedProductCartLensesSelected.innerHTML = cartData.selectedProductLenses;
@@ -170,11 +170,6 @@ async function controlPrice() {
     productData = await response.json();
     for (let i = 0; i < localStorage.length; i++) {
       if (cartData.selectedProductId === productData[i]._id && cartData.selectedProductUnityPrice !== productData[i].price / 100) {
-        console.log(cartData.selectedProductId);
-        console.log(productData[i]._id);
-        console.log(cartData.selectedProductUnityPrice);
-        console.log(productData[i].price / 100);
-
         alert("Welcome back! Sorry about that but prices have changed, your have to shop again...");
         localStorage.clear();
         window.location.href = "../index.html";
@@ -185,7 +180,6 @@ async function controlPrice() {
     }
   }
 }
-
 
 //Calling the functions
 controlPrice();
