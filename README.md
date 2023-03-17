@@ -1,19 +1,19 @@
-# Orinocco
+# Project 4/6 - Web Developer Path
 
-## Project 5 OpenClassrooms Web Developer Course - Build an e-commerce site.
+## Build an e-commerce site.
 
 ### Specifications:
 
 - Technologies used: HTML5, CSS3 and JavaScript
 
 - The web application will be composed of 4 pages:
-   - a "home page": a list showing all the items available for sale.
+   - home page: a list showing all the items available for sale.
     
-   - a "product page": dynamically displays the product selected by the user and allows him to customize the product and add it to his shopping cart
+   - product pag": dynamically displays the product selected by the user and allows him to customize the product and add it to his shopping cart
     
-   - a "shopping cart":  a summary of the products in the cart, the total price and a form to place an order. The data form must be correct and well formated before being                    sent to the back-end.
+   - shopping cart:  a summary of the products in the cart, the total price and a form to place an order. The data form must be correct and well formated before being                    sent to the back-end.
    
-   - a "confirmation page": thanking the user, and indicating the order, the total price and the order ID sent by the server.
+   - confirmation page: thanking the user, and indicating the order, the total price and the order ID sent by the server.
 
 - The source code should be indented and use comments. It should also use global functions.
 
