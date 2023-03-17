@@ -1,6 +1,6 @@
-# PingrisAlexis_05_06042021
+# Orinocco
 
-## Project 5 OpenClassrooms - Build an e-commerce site.
+## Project 5 OpenClassrooms Web Developer Course - Build an e-commerce site.
 
 ### Specifications:
 
